@@ -10,6 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'This is Build stage'
+                sh "docker build -t fixnflow:v1.${BUILD_ID} ."
             }
         }
     }
