@@ -1,5 +1,11 @@
 pipeline {
     agent any
+    environment{
+        ANSIBLE_SERVER = "13.233.161.249"
+        ANSIBLE_PRIVATE_IP = "172.31.38.163"
+        K8S_SERVER = ""
+        WORKSPACE_DIR = "/var/lib/jenkins/workspace/todo_pipeline"
+    }
     stages {
         stage('Code') {
             steps {
@@ -7,10 +13,12 @@ pipeline {
                 git url: "https://github.com/salilgupta332/fixNflow.git", branch: "dev"
             }
         }
-        stage('Build') {
+        stage("Sending Docker file to ansible server") {
             steps {
-                echo 'This is Build stage'
-                sh "docker build -t fixnflow:v1.${BUILD_ID} -f fixNflow-backend/Dockerfile fixNflow-backend/" 
+                sshagent(['ansible']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_SERVER}"
+                    sh "scp -o StrictHostKeyChecking=no -r ${WORKSPACE_DIR}/* ubuntu@${ANSIBLE_SERVER}:/home/ubuntu/fixnflow"
+                }
             }
         }
     }
