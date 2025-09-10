@@ -22,5 +22,12 @@ pipeline {
                 }
             }
         }
+            stage("Build Docker image on EC2") {
+            steps {
+                sshagent(['ansible']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_SERVER} 'cd /home/ubuntu/fixnflow/fixNflow-backend && docker image build -t fixnflow-backend:v1.${BUILD_ID} .'"
+                }
+            }
+        }
     }
 }
