@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FixNFlow Chat</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Chat</h1>
+  <div id="chat"></div>
+  <input id="messageInput" placeholder="Type message..." />
+  <button id="sendBtn">Send</button>
+
+  <script>
+    const socket = io('http://localhost:5000');
+    const repairRequestId = 'your_repair_request_id_here';
+    const senderId = '68c1e3b3f265ae8511ee38be';    // Logged-in user
+    const receiverId = '68c1e20df265ae8511ee38b4'; // Chat partner
+
+    socket.emit('joinRoom', repairRequestId);
+
+    socket.on('receiveMessage', (data) => {
+      const chat = document.getElementById('chat');
+      const msgElem = document.createElement('p');
+      msgElem.innerText = `${data.senderId === senderId ? 'Me' : 'Them'}: ${data.message}`;
+      chat.appendChild(msgElem);
+    });
+
+    document.getElementById('sendBtn').onclick = () => {
+      const message = document.getElementById('messageInput').value;
+      if (!message) return;
+
+      // Emit message via socket
+      socket.emit('sendMessage', {
+        repairRequestId,
+        senderId,
+        receiverId,
+        message
+      });
+
+      // Optionally also save message via REST API here
+
+      document.getElementById('messageInput').value = '';
+    };
+  </script>
+</body>
+</html>
