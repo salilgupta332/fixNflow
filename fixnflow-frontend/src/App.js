@@ -8,17 +8,8 @@ import About from './pages/About';
 import Features from './pages/Features';
 import Contact from './pages/Contact';
 import Header from './components/Header';
+import Home from './pages/Home';
 
-function Home() {
-  return (
-    <div>
-      <h2>Welcome to FixNFlow</h2>
-      <p>
-        Please <a href="/login">login</a> to continue.
-      </p>
-    </div>
-  );
-}
 
 function App() {
   return (
