@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment{
-        ANSIBLE_SERVER = "13.200.252.209"
+        ANSIBLE_SERVER = "13.201.53.241"
         ANSIBLE_PRIVATE_IP = "172.31.38.163"
         K8S_SERVER = ""
         WORKSPACE_DIR = "/var/lib/jenkins/workspace/FixNFlow-dev"
@@ -22,10 +22,17 @@ pipeline {
                 }
             }
         }
-            stage("Build Docker image on EC2") {
+        stage("Build Backend Docker image on EC2") {
             steps {
                 sshagent(['ansible']) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_SERVER} 'cd /home/ubuntu/fixnflow/fixNflow-backend && docker image build -t fixnflow-backend:v1.${BUILD_ID} .'"
+                }
+            }
+        }
+        stage("Build Frontend Docker image on EC2") {
+            steps {
+                sshagent(['ansible']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_SERVER} 'cd /home/ubuntu/fixnflow/fixNflow-frontend && docker image build -t fixnflow-frontend:v1.${BUILD_ID} .'"
                 }
             }
         }
