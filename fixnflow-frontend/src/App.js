@@ -4,6 +4,10 @@ import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard"; // Your authenticated page
 import PrivateRoute from "./components/PrivateRoute";
+import About from './pages/About';
+import Features from './pages/Features';
+import Contact from './pages/Contact';
+import Header from './components/Header';
 
 function Home() {
   return (
@@ -20,9 +24,13 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/contact" element={<Contact />} />
           <Route
             path="/dashboard"
             element={

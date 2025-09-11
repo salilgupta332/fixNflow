@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: #222;
+  color: #fff;
+}
+
+.header-logo {
+  text-decoration: none;
+  color: #61dafb;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.header-nav {
+  flex: 1;
+  margin-left: 40px;
+}
+
+.header-link {
+  color: #fff;
+  margin-right: 24px;
+  text-decoration: none;
+}
+
+.header-link:last-child {
+  margin-right: 0;
+}
+
+.header-auth {
+  
+}
+
+.header-button,
+.header-link-button {
+  background: #61dafb;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: #222;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.header-button {
+  margin-left: 16px;
+}
