@@ -1,0 +1,49 @@
+.dashboard-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.dashboard-container h1 {
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.dashboard-container p {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.requests-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 25px;
+}
+
+.request-item {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  background: #f9f9f9;
+}
+
+.request-item strong {
+  font-size: 1.1rem;
+  color: #007acc;
+}
+
+.create-request-btn {
+  margin-top: 30px;
+  padding: 10px 22px;
+  font-size: 1rem;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #222;
+}
