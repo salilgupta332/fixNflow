@@ -32,7 +32,7 @@ pipeline {
         stage("Build Frontend Docker image on EC2") {
             steps {
                 sshagent(['ansible']) {
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_SERVER} 'cd /home/ubuntu/fixnflow/fixNflow-frontend && docker image build -t fixnflow-frontend:v1.${BUILD_ID} .'"
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_SERVER} 'cd /home/ubuntu/fixnflow/fixnflow-frontend && docker image build -t fixnflow-frontend:v1.${BUILD_ID} .'"
                 }
             }
         }
