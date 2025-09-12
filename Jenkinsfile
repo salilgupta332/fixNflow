@@ -3,7 +3,7 @@ pipeline {
     environment {
         ANSIBLE_SERVER = "13.201.127.3"
         ANSIBLE_PRIVATE_IP = "172.31.38.163"
-        K8S_SERVER = ""
+        K8S_SERVER = "172.31.37.138"
         WORKSPACE_DIR = "/var/lib/jenkins/workspace/FixNFlow-dev"
     }
     stages {
@@ -58,6 +58,14 @@ pipeline {
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_SERVER} 'docker push devop0502/fixnflow-frontend:latest'"
                         echo "Fronted Images Successfully pushed to Docker Hub"
                     }
+                }
+            }
+        }
+                stage("Copy files from ansible to kubernetes server") {
+            steps {
+                sshagent(['ansible']) {
+                    sh "ssh -o StrictHostKeyChecking=no  ubuntu@${K8S_SERVER} 'echo Connected to K8s server'"
+                    sh "scp -o StrictHostKeyChecking=no -r ${WORKSPACE_DIR}/* ubuntu@${K8S_SERVER}:/home/ubuntu/fixnflow/"
                 }
             }
         }
