@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        ANSIBLE_SERVER = "65.0.31.107"
+        ANSIBLE_SERVER = "13.201.127.3"
         ANSIBLE_PRIVATE_IP = "172.31.38.163"
         K8S_SERVER = ""
         WORKSPACE_DIR = "/var/lib/jenkins/workspace/FixNFlow-dev"
