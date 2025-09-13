@@ -1,0 +1,28 @@
+- hosts: all
+  become: true
+  tasks: 
+
+    - name: Namespace Added
+      command: kubectl apply -f /home/ubuntu/fixnflow/namespace.yml
+      environment:
+        KUBECONFIG: /home/ubuntu/.kube/config
+
+    - name: Deploy or update backend deployment
+      command: kubectl apply -f /home/ubuntu/fixnflow/backend_deployment.yml
+      environment:
+        KUBECONFIG: /home/ubuntu/.kube/config
+
+    - name: Deploy or update frontend deployment
+      command: kubectl apply -f /home/ubuntu/fixnflow/frontend_deployment.yml
+      environment:
+        KUBECONFIG: /home/ubuntu/.kube/config
+
+    - name: Deploy or update backend service
+      command: kubectl apply -f /home/ubuntu/fixnflow/backend_service.yml
+      environment:
+        KUBECONFIG: /home/ubuntu/.kube/config
+
+    - name: Deploy or update frontend service
+      command: kubectl apply -f /home/ubuntu/fixnflow/frontend_service.yml
+      environment:
+        KUBECONFIG: /home/ubuntu/.kube/config

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+metadata:
+  name: fixnflow-backend
+  namespace: fixnflow
+spec:
+  relicas: 1
+  selector:
+    matchLabels:
+      app: fixnflow-backend
+  template:
+    metadata:
+      labels:
+        app: fixnflow-backend
+    spec:
+      containers:
+      - name: backend
+        image: devop0502/fixnflow-backend:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PORT
+          value: "5000"
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: fixnflow-secrets
+              key: mongodb-uri
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: fixnflow-secrets
+              key: jwt-secret

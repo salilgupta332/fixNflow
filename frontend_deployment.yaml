@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fixnflow-frontend
+  namespace: fixnflow
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fixnflow-frontend
+  template:
+    metadata:
+      labels:
+        app: fixnflow-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: devop0502/fixnflow-frontend:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: REACT_APP_API_URL
+          value: "http://backend-service:5000"  # Internal cluster URL for backend API
