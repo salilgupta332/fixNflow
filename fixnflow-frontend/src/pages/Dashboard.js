@@ -73,14 +73,14 @@ const Dashboard = () => {
       onClick={() => handleDelete(req._id)}
       title="Delete"
     >
-      🗑️
+      Delete Request
     </button>
     <button
       className="action-btn"
       onClick={() => navigate(`/edit-repair-request/${req._id}`)}
       title="Edit"
     >
-      ✎
+      Edit Request
     </button>
   </div>
 </li>
