@@ -73,7 +73,7 @@ pipeline {
             steps {
                 sshagent(['ansible']) {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_PRIVATE_IP} 'cd /home/ubuntu/fixnflow/' "
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_PRIVATE_IP} 'ansible-playbook ansible.yml' "
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${ANSIBLE_PRIVATE_IP} 'ansible-playbook playbook.yml' "
                 }
             }
         }
