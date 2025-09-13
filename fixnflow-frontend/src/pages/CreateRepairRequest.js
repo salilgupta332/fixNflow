@@ -21,6 +21,8 @@ const CreateRepairRequest = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
   const validate = () => {
     const errs = {};
     if (!formData.brand.trim()) errs.brand = "Brand is required";
@@ -49,7 +51,7 @@ const CreateRepairRequest = () => {
     setSuccessMessage("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/repairs/create", {
+      const response = await fetch(`${API_URL}/api/repairs/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

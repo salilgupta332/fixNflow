@@ -17,11 +17,13 @@ const EditRepairRequest = () => {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
 
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
   // Fetch existing repair request data on mount
   useEffect(() => {
     const fetchRequest = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/repairs/${id}`, {
+        const res = await axios.get(`${API_URL}/api/repairs/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -47,7 +49,7 @@ const EditRepairRequest = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/repairs/${id}`, formData, {
+      await axios.put(`${API_URL}/api/repairs/${id}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       // Redirect to dashboard after success
