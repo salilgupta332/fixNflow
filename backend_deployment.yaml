@@ -4,7 +4,7 @@ metadata:
   name: fixnflow-backend
   namespace: fixnflow
 spec:
-  relicas: 1
+  replicas: 1
   selector:
     matchLabels:
       app: fixnflow-backend
