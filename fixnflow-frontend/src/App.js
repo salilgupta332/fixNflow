@@ -10,6 +10,8 @@ import Contact from './pages/Contact';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Register from './pages/Register'
+import CreateRepairRequest from "./pages/CreateRepairRequest"
+import EditRepairRequest from './components/EditRepairRequest';
 
 function App() {
   return (
@@ -28,9 +30,12 @@ function App() {
             element={
               <PrivateRoute>
                 <Dashboard />
+                
               </PrivateRoute>
             }
           />
+          <Route path="/create-repair-request" element={<CreateRepairRequest />} />
+          <Route path="/edit-repair-request/:id" element={<EditRepairRequest />} />
         </Routes>
       </Router>
     </AuthProvider>

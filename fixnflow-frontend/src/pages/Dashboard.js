@@ -2,12 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import './Dashboard.css';
+import { useNavigate } from 'react-router-dom'; 
 
 const Dashboard = () => {
   const { token } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Fetch user info and repair requests on mount
   useEffect(() => {
@@ -33,7 +35,20 @@ const Dashboard = () => {
     fetchData();
   }, [token]);
 
+  const handleDelete = async (id) => {
+  try {
+    await axios.delete(`http://localhost:5000/api/repairs/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setRequests(requests.filter((req) => req._id !== id));
+  } catch (error) {
+    alert("Failed to delete repair request");
+  }
+};
+
+
   if (loading) return <p>Loading dashboard...</p>;
+
 
   return (
     <div className="dashboard-container">
@@ -47,9 +62,25 @@ const Dashboard = () => {
           <ul className="requests-list">
             {requests.map((req) => (
               <li key={req._id} className="request-item">
-                <strong>{req.brand} {req.model}</strong> - Status: {req.status}
-                <p>{req.issueDescription}</p>
-              </li>
+  <strong>{req.device?.brand} {req.device?.model}</strong> - Status: {req.status}
+  <p>{req.issueDescription}</p>
+  <div className="request-actions">
+    <button
+      className="action-btn"
+      onClick={() => handleDelete(req._id)}
+      title="Delete"
+    >
+      🗑️
+    </button>
+    <button
+      className="action-btn"
+      onClick={() => navigate(`/edit-repair-request/${req._id}`)}
+      title="Edit"
+    >
+      ✎
+    </button>
+  </div>
+</li>
             ))}
           </ul>
         ) : (
@@ -57,7 +88,7 @@ const Dashboard = () => {
         )}
       </section>
 
-      <button onClick={() => window.location.href = '/create-request'} className="create-request-btn">
+      <button onClick={() => navigate('/create-repair-request')} className="create-request-btn">
         Create New Repair Request
       </button>
     </div>
