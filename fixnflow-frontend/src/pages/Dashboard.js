@@ -12,16 +12,19 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   // Fetch user info and repair requests on mount
+
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Example: Adjust endpoint for your backend's user profile
-        const userRes = await axios.get('http://localhost:5000/api/auth/profile', {
+        const userRes = await axios.get(`${API_URL}/api/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(userRes.data);
 
-        const requestsRes = await axios.get('http://localhost:5000/api/repairs/my-requests', {
+        const requestsRes = await axios.get(`${API_URL}/api/repairs/my-requests`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setRequests(requestsRes.data);
@@ -33,11 +36,11 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, [token]);
+  }, [token , API_URL]);
 
   const handleDelete = async (id) => {
   try {
-    await axios.delete(`http://localhost:5000/api/repairs/${id}`, {
+    await axios.delete(`${API_URL}/api/repairs/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setRequests(requests.filter((req) => req._id !== id));
